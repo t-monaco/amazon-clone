@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Product.css';
 
 function Product({ id, title, img, price, rating}) {
@@ -19,7 +20,9 @@ function Product({ id, title, img, price, rating}) {
                 src={img}
                 alt=""
             />
-            <button className="product__button">Add to basket</button>
+            <Link to="/checkout">
+                <button className="product__button">Add to basket</button>
+            </Link>
         </div>
     );
 }

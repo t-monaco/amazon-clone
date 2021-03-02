@@ -1,16 +1,20 @@
-import React from 'react'
+import React from 'react';
 import './Header.css';
 import SearchIcon from '@material-ui/icons/Search';
 import cartLogo from './../images/amazon-cart.svg';
+import { Link } from 'react-router-dom';
+import amazonLogo from './../images/amazon-logo.png'
 
 function Header() {
     return (
         <div className="header">
-            <img
-                className="header__logo"
-                src="http://pngimg.com/uploads/amazon/amazon_PNG25.png"
-                alt=""
-            />
+            <Link to="/">
+                <img
+                    className="header__logo"
+                    src={amazonLogo}
+                    alt=""
+                />
+            </Link>
 
             <div className="header__search">
                 <input className="header__searchInput" type="text" />
@@ -45,4 +49,4 @@ function Header() {
     );
 }
 
-export default Header
+export default Header;
