@@ -1,10 +1,16 @@
 import React from 'react'
 import './Home.css'
 import Product from './Product'
+import { Helmet } from 'react-helmet';
+
+
 
 function Home() {
     return (
         <div className="home">
+            <Helmet>
+                <title>Amazon.com</title>
+            </Helmet>
             <div className="home__container">
                 <img
                     className="home__heroImg"
