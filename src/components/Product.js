@@ -1,8 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useStateValue } from './../StateProvider';
 import './Product.css';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 function Product({ id, title, img, price, rating}) {
+    const [{ basket }, dispatch] = useStateValue();
+
+    const addToBasket = () => {
+        // Dispatch item to basket
+        dispatch({
+            type: 'ADD_TO_BASKET',
+            payload: {
+                product: {
+                    id,
+                    title,
+                    img,
+                    price,
+                    rating,
+                }
+            }
+        })
+    }
+
     return (
         <div className="product">
             <div className="product__info">
@@ -15,14 +34,10 @@ function Product({ id, title, img, price, rating}) {
                     <p>{'⭐️'.repeat(rating)}</p>
                 </div>
             </div>
-            <img
-                className="product__img"
-                src={img}
-                alt=""
-            />
-            <Link to="/checkout">
-                <button className="product__button">Add to basket</button>
-            </Link>
+            <img className="product__img" src={img} alt="" />
+            <button onClick={addToBasket} className="product__button">
+                <AddCircleOutlineIcon className="product__buttonIcon" />
+            </button>
         </div>
     );
 }
