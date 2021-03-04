@@ -8,9 +8,14 @@ export const getBasketTotal = (basket) =>
     basket?.reduce((amount, item) => item.price * item.quantity + amount, 0);
 // ---
 
+// --- Selector
+export const getTotalItems = (basket) =>
+    basket?.reduce((count, item) => item.quantity + count, 0);
+// ---
+
 const reducer = (state, action) => {
     const { type, payload } = action;
-    
+
     switch (type) {
         case 'ADD_TO_BASKET':
             const productId = payload.product.id;
@@ -37,27 +42,37 @@ const reducer = (state, action) => {
                 basket: [...state.basket, { ...payload.product, quantity: 1 }],
             };
 
-        case 'REMOVE_FROM_BASKET':
-            const productIndex = state.basket.findIndex(product => product.id === payload.id);
-            if (state.basket[productIndex].quantity > 1) {
-                const basket = state.basket.reduce((basketAcc, product) => {
-                    if (product.id === payload.id) {
-                        basketAcc.push({
-                            ...product,
-                            quantity: product.quantity - 1,
-                        });
-                    } else {
-                        basketAcc.push(product);
-                    }
-                    return basketAcc;
-                }, []);
-                return { ...state, basket };
-            }
+        case 'DECREASE_QUANTITY_PRODUCT_FROM_BASKET':
+            const basket = state.basket.reduce((basketAcc, product) => {
+                if (product.id === payload.id) {
+                    basketAcc.push({
+                        ...product,
+                        quantity: product.quantity - 1,
+                    });
+                } else {
+                    basketAcc.push(product);
+                }
+                return basketAcc;
+            }, []);
+            return { ...state, basket };
+        case 'REMOVE_PRODUCT_FROM_BASKET':
             return {
                 ...state,
                 basket: state.basket.filter((item) => item.id !== payload.id),
             };
-            
+
+        case 'SET_USER':
+            return {
+                ...state,
+                user: payload.user,
+            };
+
+        case 'EMPTY_BASKET':
+            return {
+                ...state,
+                basket: [],
+            };
+
         default:
             return state;
     }
