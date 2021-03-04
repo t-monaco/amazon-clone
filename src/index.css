@@ -1,5 +1,6 @@
 * {
     margin: 0;
+    font-family: 'Raleway', sans-serif;
 }
 
 body {
@@ -15,4 +16,8 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
+}
+
+a {
+    text-decoration: none;
 }
